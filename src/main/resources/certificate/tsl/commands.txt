@@ -1,0 +1,5 @@
+# Launch follow command for generate the certificate:
+# keytool -genkeypair -alias tomcat -keyalg RSA -storetype PKCS12 -keysize 4096 -keystore keystore.jks -validity 3650 -storepass cosenz91
+# keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.p12 -deststoretype pkcs12
+# keytool -export -keystore keystore.p12 -alias tomcat -file clientCertificate.crt
+# keytool -importcert -file clientCertificate.crt -alias tomcat -keystore "C:\Program Files\Java\jdk1.8.0_201\jre\lib\security\cacerts"
