@@ -4,6 +4,8 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+*.class
+
 ### STS ###
 .apt_generated
 .classpath
@@ -12,6 +14,9 @@ target/
 .settings
 .springBeans
 .sts4-cache
+*.orig
+*.jar
+/bin/
 
 ### IntelliJ IDEA ###
 .idea
@@ -22,7 +27,6 @@ target/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
 /nbdist/
 /.nb-gradle/
 build/
