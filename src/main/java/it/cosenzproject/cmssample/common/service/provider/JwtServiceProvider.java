@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ import it.cosenzproject.cmssample.core.security.service.JwtService;
 @Service(JwtServiceProvider.BEAN_NAME)
 public class JwtServiceProvider implements JwtService {
 
-	private static final Logger LOGGER = Logger.getLogger(JwtService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JwtService.class);
 
 	public static final String BEAN_NAME = "it.cosenzproject.cmssample.common.service.provider.JwtServiceProvider";
 
@@ -109,7 +110,7 @@ public class JwtServiceProvider implements JwtService {
 //			RSAPrivateCrtKey priv2 = (RSAPrivateCrtKey) privateKey;
 //			PublicKey pubkey = kf.generatePublic(new RSAPublicKeySpec(priv2.getModulus(), priv2.getPublicExponent()));
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException | IOException e) {
-			LOGGER.error("Errore durante la lettura del certificato jwt: {}", e);
+			LOGGER.error("Errore durante la lettura del certificato jwt: {0}", e);
 		}
 
 		return privateKey;
@@ -122,7 +123,7 @@ public class JwtServiceProvider implements JwtService {
 			KeyFactory kf = KeyFactory.getInstance("RSA");
 			publicKey = kf.generatePublic(new X509EncodedKeySpec(Files.readAllBytes(Paths.get(this.publicJwtKey))));
 		} catch (InvalidKeySpecException | IOException | NoSuchAlgorithmException e) {
-			LOGGER.error("Errore durante la lettura della public key: {}", e);
+			LOGGER.error("Errore durante la lettura della public key: {0}", e);
 		}
 
 		return publicKey;

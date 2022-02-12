@@ -1,23 +1,24 @@
 package it.cosenzproject.cmssample.core.logging;
 
-import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractLoggingAspect {
 
-	public final Logger logger = Logger.getLogger(getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLoggingAspect.class);
 
 	protected Object logInvoked(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object result = null;
 		String signature = joinPoint.getSignature().toShortString();
-		this.logger.info(String.format("START - %s", signature));
+		LOGGER.info(String.format("START - %s", signature));
 
 		result = joinPoint.proceed();
 
-		this.logger.info(String.format("END - %s, result: %s", signature, convertString(result)));
+		LOGGER.info(String.format("END - %s, result: %s", signature, convertString(result)));
 
 		return result;
 	}
@@ -28,7 +29,7 @@ public abstract class AbstractLoggingAspect {
 		try {
 			jsonString = mapper.writeValueAsString(result);
 		} catch (JsonProcessingException e) {
-			this.logger.error("Error during converter ResponseEntity to JSON, {}", e);
+			LOGGER.error("Error during converter ResponseEntity to JSON, {0}", e);
 		}
 		return jsonString;
 	}
